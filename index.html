@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="description"
+      content="Na stronie Biblioteka audio, mozesz znalesc rożne utwory, ktore mozesz przefiltorwac za pomoca wbudowanych filtrów"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biblioteka audio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <nav>
+    <ol>
+      <li>
+        <a>Gatunek</a>
+        <ul>
+          <li><button class="ROCK">ROCK</button></li>
+          <li><button class="POP">POP</button></li>
+          <li><button class="RAP">RAP</button></li>
+          <li><button class="R&B">R&B</button></li>
+          <li><button class="TRAP">TRAP</button></li>
+          <li><button class="DRILL">DRILL</button></li>
+          <li><button class="HOUSE">HOUSE</button></li>
+          <li><button class="TECHNO">TECHNO</button></li>
+          <li><button class="INDIE">INDIE</button></li>
+        </ul>
+      </li>
+    </ol>
+
+    <button id="fetchSongs">Pokaz wszystkie</button>
+    <button id="sortSongs1">Sortuj od najdluzszych</button>
+    <button id="sortSongs2">Sortuj od najkrotszych</button>
+  </nav>
+  <body>
+    <table class="songs"></table>
+  </body>
+  <script>
+    const songsTabble = document.querySelector(".songs");
+    const button = document.getElementById("fetchSongs");
+
+    fetchSongs.addEventListener("click", async () => {
+      try {
+        const response = await fetch(
+          "https://gist.githubusercontent.com/techniadrian/c39f844edbacee0439bfeb107227325b/raw/81eec7847b1b3dfa1c7031586405c93e9a9c1a2d/songs.json"
+        );
+        const data = await response.json();
+
+        data.forEach((song) => {
+          const songElement = document.createElement("Tabble");
+          songElement.classList.add("song");
+          songElement.innerHTML = `
+                            <h1>${song.title}</h1>
+                            <p>Artysta: ${song.artists}</p>
+                            <p>Gatunek: ${song.genre}</p>
+                            <p>BPM: ${song.bpm}</p>
+                            <p>Długość: ${song.duration}</p>
+
+                        `;
+          songsTabble.appendChild(songElement);
+        });
+      } catch (error) {
+        console.error("Błąd", error);
+      }
+    });
+    sortSongs1.addEventListener("click", async () => {
+      try {
+        const response = await fetch(
+          "https://gist.githubusercontent.com/techniadrian/c39f844edbacee0439bfeb107227325b/raw/81eec7847b1b3dfa1c7031586405c93e9a9c1a2d/songs.json"
+        );
+        const data = await response.json();
+
+        data.sort((a, b) => {
+          return b.duration - a.duration;
+        });
+
+        data.forEach((song) => {
+          const songElement = document.createElement("Tabble");
+          songElement.classList.add("song");
+          songElement.innerHTML = `
+                            <h1>${song.title}</h1>
+                            <p>Artysta: ${song.artists}</p>
+                            <p>Gatunek: ${song.genre}</p>
+                            <p>BPM: ${song.bpm}</p>
+                            <p>Długość: ${song.duration}</p>
+
+                        `;
+          songsTabble.appendChild(songElement);
+        });
+      } catch (error) {
+        console.error("Błąd", error);
+      }
+    });
+    sortSongs2.addEventListener("click", async () => {
+      try {
+        const response = await fetch(
+          "https://gist.githubusercontent.com/techniadrian/c39f844edbacee0439bfeb107227325b/raw/81eec7847b1b3dfa1c7031586405c93e9a9c1a2d/songs.json"
+        );
+        const data = await response.json();
+
+        data.sort((a, b) => {
+          return a.duration - b.duration;
+        });
+
+        data.forEach((song) => {
+          const songElement = document.createElement("Tabble");
+          songElement.classList.add("song");
+          songElement.innerHTML = `
+                            <h1>${song.title}</h1>
+                            <p>Artysta: ${song.artists}</p>
+                            <p>Gatunek: ${song.genre}</p>
+                            <p>BPM: ${song.bpm}</p>
+                            <p>Długość: ${song.duration}</p>
+
+                        `;
+          songsTabble.appendChild(songElement);
+        });
+      } catch (error) {
+        console.error("Błąd", error);
+      }
+    });
+  </script>
+</html>
